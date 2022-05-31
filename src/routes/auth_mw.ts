@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as jwt from 'jsonwebtoken';
-import { Usuarios } from "../Entities/usuarios";
+import { Usuarios } from "../entities/usuarios";
 
 
 export function jwtAdminMidleware(req: Request, res: Response, next) {

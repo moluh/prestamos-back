@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 
 @Entity('clientes')
@@ -25,11 +25,11 @@ export class Clientes extends BaseEntity {
     @Column({ type: 'varchar', length: 70, nullable: true })
     email: string;
 
-    @Column({ type: 'timestamp', nullable: true })
-    created_at: Date;
+    // @Column({ type: 'timestamp', nullable: true })
+    // created_at: Date
 
-    @Column({ type: 'timestamp', nullable: true })
-    updated_at: Date;
+    // @Column({ type: 'timestamp', nullable: true })
+    // updated_at: Date;
 
 
     static findByEmail(email: string) {

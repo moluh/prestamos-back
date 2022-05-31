@@ -1,4 +1,4 @@
-import { Prestamos } from '../Entities/prestamos';
+import { Prestamos } from '../entities/prestamos';
 import { Request, Response, NextFunction } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 
@@ -9,7 +9,7 @@ export class PrestamosController {
 
     public async getPrestamos(req: Request, res: Response) {
         await Prestamos.find({
-            order: { fecha_hora: "ASC" },
+            // order: { fecha_hora: "ASC" },
             relations: ['clienteId', 'pagos']
         })
             .then(prestamo => { res.json(prestamo) })

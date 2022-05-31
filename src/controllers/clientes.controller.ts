@@ -1,18 +1,46 @@
-import { Clientes } from '../Entities/clientes';
-import { Request, Response, NextFunction } from 'express';
+import { Clientes } from '../entities/clientes';
+import { Request, Response } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import mysqlUtil from '../database/mysql.util';
+import { DataSource } from 'typeorm';
 
 export class ClientesController {
 
+    db: DataSource = null
+    // repo = null
+
+    // private db = mysqlUtil.getDb();
+
     constructor() {
+        setTimeout(() => {
+            
+            this.init()
+        }, 3000);
+    }
+
+    init() {
+        console.log('initttt',);
+        const c = new Clientes();
+        const res = this.db.manager.findAndCount(Clientes)
+        console.log('res', res);
+
+        // this.db = mysqlUtil.getDb()
+        // this.repo = this.db.getRepository(Clientes)
+
+        console.log('this.db',this.db);
+        // console.log('this.repo',this.repo);
+        
     }
 
     public async getClientes(req: Request, res: Response) {
-        await Clientes.find({
-            order: { nombre: "ASC" }
-        })
-            .then(cliente => { res.json(cliente) })
-            .catch(err => { res.json(err.message); })
+
+        console.log('this.db',this.db);
+        // console.log('this.repo',this.repo);
+        // this.repo.find({
+        //     order: { nombre: "ASC" }
+        // })
+        //     .then(cliente => { res.json(cliente) })
+        //     .catch(err => { res.json(err.message); })
     }
 
     public async getCliente(req: Request, res: Response) {
@@ -31,8 +59,8 @@ export class ClientesController {
         cliente.apellido = req.body.apellido;
         cliente.domicilio = req.body.domicilio;
         cliente.localidad = req.body.localidad;
-        cliente.created_at = new Date();
-        cliente.updated_at = new Date();
+        // cliente.created_at = new Date();
+        // cliente.updated_at = new Date();
 
         await new Promise((resolve, reject) => {
             Clientes.findOne({ telefono } as FindOneOptions<Clientes>)
@@ -68,7 +96,7 @@ export class ClientesController {
                 cliente.apellido = req.body.apellido;
                 cliente.domicilio = req.body.domicilio;
                 cliente.localidad = req.body.localidad;
-                cliente.updated_at = new Date();
+                // cliente.updated_at = new Date();
 
                 if (cliente.telefono !== telefono) {
                     await new Promise((resolve, reject) => {

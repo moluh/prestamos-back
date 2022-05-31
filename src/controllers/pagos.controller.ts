@@ -1,4 +1,4 @@
-import { Pagos } from '../Entities/pagos';
+import { Pagos } from '../entities/pagos';
 import { Request, Response, NextFunction } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 

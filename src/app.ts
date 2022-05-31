@@ -5,14 +5,12 @@ const config: Config = new Config();
 const result = dotenv.config();
 console.log('DotEnv:', result);
 if (result.error) { throw result.error; }
-
-import { createConnection, Connection } from 'typeorm';
+import mysqlUtil from './database/mysql.util';
 import compression from 'compression';
 import helmet from 'helmet';
 import express from 'express';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
-import * as path from 'path';
 import * as http from 'http';
 
 // Routes
@@ -23,13 +21,12 @@ import { PagosRouter } from './routes/pagos.routes';
 import { LoginRoutes } from './routes/login.routes';
 import { EstadisticasRouter } from './routes/estadisticas.routes';
 
+
 class App {
 
     private logger = require('morgan');     // Registro de cada petición
     public app: express.Application;
-    public conection: Connection;
     public server: http.Server;
-
     public routeClientes: ClientesRouter = new ClientesRouter();
     public routeUsuarios: UsuariosRouter = new UsuariosRouter();
     public routePrestamos: PrestamosRouter = new PrestamosRouter();
@@ -41,16 +38,14 @@ class App {
     constructor() {
         console.log('Iniciando Servidor');
         this.app = express();
+        this.init();
+    }
 
-        createConnection()
-            .then(async connection => {
-                this.conection = connection;
-                console.log('Base de datos Ecommerce:', connection.isConnected);
-            })
-            .catch(error => console.log(error));
+    private async init() {
+
+        await this.connectDatabase()
 
         this.config();
-
         //Definimos todas las rutas
         this.routeClientes.routes(this.app);
         this.routePagos.routes(this.app);
@@ -60,7 +55,11 @@ class App {
         this.routeEst.routes(this.app);
     }
 
-    private config(): void {
+    private async connectDatabase(): Promise<void> {
+        await mysqlUtil.connectDb()
+    }
+
+    private async config(): Promise<void> {
         this.app.use(this.logger('dev'));
 
         // bodyParser: Analiza los cuerpos de solicitud entrantes en un middleware antes de sus 

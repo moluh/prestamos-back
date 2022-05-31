@@ -1,6 +1,6 @@
 {
-  "watch": ["backend/"],
+  "watch": ["src"],
   "ext": "*",
   "ignore": ["dist/","src/**/*.spec.ts"],
-  "exec": "tsc && node dist/app.js"
+  "exec": "npm run start:dev"
 }
