@@ -1,12 +1,12 @@
 import { DataSource } from "typeorm";
-import dataSource from "./../data-source"
+import { AppDataSource } from "./../data-source"
 
 let db: DataSource = null;
 
 const mysqlUtil = {
     connectDb: async (): Promise<DataSource> => {
         try {
-            db = await dataSource.initialize()
+            db = await AppDataSource.initialize()
             console.log('Connected to MySQL')
             return db;
         } catch (error) {
@@ -18,4 +18,5 @@ const mysqlUtil = {
         else mysqlUtil.connectDb()
     }
 }
+
 export default mysqlUtil;

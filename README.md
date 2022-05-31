@@ -1,24 +1,13 @@
-# API RESTful Para prestamistas
+# API RESTful Para Prestamistas
 
 Instalar Nodemon Global
 > npm install -g nodemon
 
-# Migracion de tablas: 
 ## Generar Script SQL:
+> npm run typeorm migration:generate -- database/migrations/init -d src/data-source
 
-Windows: 
-> ts-node node_modules\typeorm\cli.js migration:generate -n NombreMigracion
+## Ejecutar Script SQL:
+> npm run typeorm migration:run -- -d src/data-source
 
-> Linux:
-> ts-node node_modules/typeorm/cli.js migration:generate -n NombreMigracion
-
-
-Ejecutar Script:
-> Windows:
-> ts-node node_modules\typeorm\cli.js migration:run
-
-> Linux:
-> ts-node node_modules/typeorm/cli.js migration:run
- 
-Arrancar Proyecto
+## Iniciar:
 > nodemon exec
