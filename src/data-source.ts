@@ -8,8 +8,8 @@ export const AppDataSource = new DataSource({
     username: "root",
     password: "testing_dev",
     database: "prestamos",
-    logging: true,
-    synchronize: true,
+    logging: false,
+    synchronize: false,
     entities: [
         "src/entities/*{.ts,.js}"
     ],

@@ -1,88 +1,45 @@
 import { Clientes } from '../entities/clientes';
 import { Request, Response } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
-import mysqlUtil from '../database/mysql.util';
-import { DataSource } from 'typeorm';
+import { AppDataSource } from "./../data-source"
 
 export class ClientesController {
 
-    db: DataSource = null
-    // repo = null
-
-    // private db = mysqlUtil.getDb();
-
     constructor() {
-        setTimeout(() => {
-            
-            this.init()
-        }, 3000);
-    }
-
-    init() {
-        console.log('initttt',);
-        const c = new Clientes();
-        const res = this.db.manager.findAndCount(Clientes)
-        console.log('res', res);
-
-        // this.db = mysqlUtil.getDb()
-        // this.repo = this.db.getRepository(Clientes)
-
-        console.log('this.db',this.db);
-        // console.log('this.repo',this.repo);
-        
     }
 
     public async getClientes(req: Request, res: Response) {
-
-        console.log('this.db',this.db);
-        // console.log('this.repo',this.repo);
-        // this.repo.find({
-        //     order: { nombre: "ASC" }
-        // })
-        //     .then(cliente => { res.json(cliente) })
-        //     .catch(err => { res.json(err.message); })
-    }
-
-    public async getCliente(req: Request, res: Response) {
-        let id: number = parseInt(req.params.id);
-        await Clientes.findOne({ id } as FindOneOptions<Clientes>)
+        await AppDataSource.manager.find(Clientes, {
+            order: { nombre: "ASC" }
+        })
             .then(cliente => { res.json(cliente) })
             .catch(err => { res.json(err.message); })
     }
 
+    public async getCliente(req: Request, res: Response) {
+        let id: number = parseInt(req.params.id);
+        const resp = await AppDataSource.manager.findOne(Clientes, { where: id } as FindOneOptions<Clientes>)
+        res.json(resp)
+    }
+
     public async createCliente(req: Request, res: Response) {
         let cliente: Clientes = new Clientes();
-        let telefono = req.body.telefono;
+        cliente = { ...req.body };
+        cliente.created_at = new Date();
+        cliente.updated_at = new Date();
 
-        cliente.telefono = telefono;
-        cliente.nombre = req.body.nombre;
-        cliente.apellido = req.body.apellido;
-        cliente.domicilio = req.body.domicilio;
-        cliente.localidad = req.body.localidad;
-        // cliente.created_at = new Date();
-        // cliente.updated_at = new Date();
+        try {
+            const u = await AppDataSource.manager.findOne(Clientes, { where: { telefono: cliente.telefono } } as FindOneOptions<Clientes>)
+            if (u)
+                return res.json('El número de teléfono ya se encuentra registrado.');
 
-        await new Promise((resolve, reject) => {
-            Clientes.findOne({ telefono } as FindOneOptions<Clientes>)
-                .then(u => {
-                    if (u) {
-                        res.json('El número de teléfono ya se encuentra registrado.');
-                    } else {
-                        resolve(u);
-                    }
-                })
-                .catch(err => {
-                    res.json(err.message);
-                    reject()
-                });
-        });
+            const resp = await AppDataSource.manager.save(Clientes, cliente)
+            return res.json(resp);
 
-        cliente.save()
-            .then(u => {
-                res.json(u);
-            }).catch(err => {
-                res.json(err);
-            });
+        } catch (e) {
+            return res.json(e);
+        }
+
     };
 
     public async updateCliente(req: Request, res: Response) {
