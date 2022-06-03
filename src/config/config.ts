@@ -28,11 +28,11 @@ export class Config {
         return this.env.NODE_ENV;
     }
 
-    get pkey() {
-        return this.env.PKEY;
+    get privateKey(): string {
+        return this.env.PRIVATE_KEY;
     }
 
-    get port() {
+    get port(): string {
         return this.env.PORT;
     }
 
@@ -48,29 +48,29 @@ export class Config {
         return parseInt(this.env.JWT_INNACTIVITY_EXP, 0);
     }
 
-    get connectNoSql(): boolean {
-        return this.env.CONNECT_NO_SQL === 'true' ? true : false;
+    get connectMongo(): boolean {
+        return this.env.CONNECT_MONGO === 'true' ? true : false;
     }
 
     get databasePrefix(): string {
         return this.env.DB_PREFIX || '';
     }
 
-    get mailApiKey() {
+    get mailApiKey(): string {
         return this.env.MAIL_API_KEY;
     }
 
-    get mailFrom() {
+    get mailFrom(): string {
         return this.env.MAIL_FROM;
     }
 }
 
 new Config().ensureValues([
-    'PKEY',
+    'PRIVATE_KEY',
     'PORT',
     'NODE_ENV',
     'BACKUPS_DIR',
-    'CONNECT_NO_SQL',
+    'CONNECT_MONGO',
 
     'JWT_SECRET',
     'JWT_EXP',

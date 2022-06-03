@@ -41,7 +41,7 @@ export class UsuariosAuthController {
         const userSinPass = { ...usuario };
         delete userSinPass.password;
 
-        let token = jwt.sign(userSinPass, process.env.PKEY, { expiresIn: '10h' });
+        let token = jwt.sign(userSinPass, process.env.PRIVATE_KEY, { expiresIn: '10h' });
 
         res.status(200).send({
             isLogged: true,

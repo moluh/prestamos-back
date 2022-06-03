@@ -25,7 +25,7 @@ export function isAllowed(requiredRoles: string[]) {
         if (typeof authString === 'string' && authString.indexOf(' ') > -1) {
             const authArray = authString.split(' ');
             const token = authArray[1];
-            jwt.verify(token, process.env.PKEY, async (error, decoded: any) => {
+            jwt.verify(token, process.env.PRIVATE_KEY, async (error, decoded: any) => {
                 if (error) return ApiResponse({ res, error });
 
                 checkRole(decoded, requiredRoles, next);

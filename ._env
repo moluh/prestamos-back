@@ -1,9 +1,9 @@
-PKEY="PRIVATE-KEY"
+PRIVATE_KEY="PRIVATE-KEY"
 PORT=3000
 NODE_ENV="DEV"
 BACKUPS_DIR="/home/lucas/backups"
-FILES_DIR="/home/lucas/Escritorio/stockfy-files"
-CONNECT_NO_SQL=false
+FILES_DIR="/home/lucas/Escritorio/prestamos-files"
+CONNECT_MONGO=false
 
 JWT_SECRET="secret"
 JWT_EXP=14400 # 3600s = 1h
