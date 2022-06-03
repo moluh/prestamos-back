@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { Clientes } from "./clientes";
+import { Usuarios } from "./usuarios";
 import { Pagos } from "./pagos";
 
 
@@ -42,8 +42,8 @@ export class Prestamos extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     estado: string;
 
-    @ManyToOne(type => Clientes, cliente => cliente.id, { onDelete: 'CASCADE' })
-    clienteId: Clientes;
+    @ManyToOne(type => Usuarios, usuario => usuario.id, { onDelete: 'CASCADE' })
+    usuarioId: Usuarios;
 
     @OneToMany(type => Pagos, pago => pago.prestamoId, { onDelete: 'CASCADE' })
     pagos: Pagos[];
@@ -56,7 +56,7 @@ export class Prestamos extends BaseEntity {
         if (estado === 'Todos') {
             console.log(`Filtrando por todos los estados, y ordenenando por ${order}`);
             return this.createQueryBuilder('prestamos')
-                .leftJoinAndSelect('prestamos.clienteId', 'cliente')
+                .leftJoinAndSelect('prestamos.usuarioId', 'usuario')
                 .leftJoinAndSelect('prestamos.pagos', 'pago')
                 .orderBy(`prestamos.${order}`, ad)
                 .skip(skipRecords)
@@ -65,7 +65,7 @@ export class Prestamos extends BaseEntity {
         } else {
             console.log(`Filtrando por estado: ${estado}, y ordenenando por ${order}`);
             return this.createQueryBuilder('prestamos')
-                .leftJoinAndSelect('prestamos.clienteId', 'cliente')
+                .leftJoinAndSelect('prestamos.usuarioId', 'usuario')
                 .leftJoinAndSelect('prestamos.pagos', 'pago')
                 .where(`LOWER(prestamos.estado) LIKE LOWER(:estado)`, { estado: '%' + estado + '%' })
                 .orderBy(`prestamos.${order}`, ad)
@@ -75,7 +75,7 @@ export class Prestamos extends BaseEntity {
         }
     }
 
-    // static getPrestamoByIdCliente(pageNro: number, pageSize: number, id: number) {
+    // static getPrestamoByIdUsuario(pageNro: number, pageSize: number, id: number) {
     //     const skipRecords = pageNro * pageSize;
     //     // attr = col nombre, apellido, etc..
     //     console.log('Filtrando por txt');

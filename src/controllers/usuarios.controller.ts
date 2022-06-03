@@ -2,76 +2,76 @@ import { Usuarios } from '../entities/usuarios';
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import { AppDataSource } from '../data.source';
+import { ApiResponse } from '../api/response';
 
 export class UsuariosController {
+    constructor() {}
 
-    constructor() {
+    public async getAll(req: Request, res: Response) {
+        await AppDataSource.manager
+            .find(Usuarios, {
+                order: { nombre: 'ASC' },
+            })
+            .then((data) => ApiResponse({ res, data }))
+            .catch((error) => ApiResponse({ res, error }));
     }
 
-    public async getUsuarios(req: Request, res: Response) {
-        await Usuarios.find({
-            order: { username: "ASC" }
-        })
-            .then(usuario => { res.json(usuario) })
-            .catch(err => { res.json(err.message); })
+    public async get(req: Request, res: Response) {
+        let id: number = parseInt(req.params.id);
+        const resp = await AppDataSource.manager.findOne(Usuarios, {
+            where: id,
+        } as FindOneOptions<Usuarios>);
+        res.json(resp);
     }
 
-    public async getUsuario(req: Request, res: Response) {
-        let id = parseInt(req.params.id);
-        await Usuarios.findOne(
-            { id } as FindOneOptions<Usuarios>
-        )
-            .then(usuario => { res.json(usuario) })
-            .catch(err => { res.json(err.message); })
-    }
-
-    public async createUsuario(req: Request, res: Response) {
+    public async create(req: Request, res: Response) {
         let usuario: Usuarios = new Usuarios();
-        usuario.username = req.body.username;
+        usuario = { ...req.body };
         usuario.password = bcrypt.hashSync(req.body.password, 10);
-        usuario.rol = req.body.rol;
+        usuario.created_at = new Date();
+        usuario.updated_at = new Date();
 
-        usuario.save()
-            .then(u => {
-                res.json(u);
-            }).catch(err => {
-                res.json(err);
-            });
-    };
+        try {
+            const u = await AppDataSource.manager.findOne(Usuarios, {
+                where: { telefono: usuario.telefono },
+            } as FindOneOptions<Usuarios>);
+            if (u)
+                return res.json(
+                    'El número de teléfono ya se encuentra registrado.',
+                );
 
-    public async updateUsuario(req: Request, res: Response) {
+            const resp = await AppDataSource.manager.save(Usuarios, usuario);
+            return res.json(resp);
+        } catch (e) {
+            return res.json(e);
+        }
+    }
+
+    public async update(req: Request, res: Response) {
         let id = parseInt(req.params.id);
         Usuarios.findOne({ id } as FindOneOptions<Usuarios>)
             .then(async (usuario: Usuarios) => {
-                console.log('usuario', usuario);
                 usuario.username = req.body.username;
                 usuario.password = req.body.password;
-                usuario.rol = req.body.rol;
-                usuario.save()
-                    .then(u => {
-                        res.json(u);
-                    })
-                    .catch(err => {
-                        res.json(err);
-                    });
+                usuario.roles = req.body.roles;
+                usuario
+                    .save()
+                    .then((data) => ApiResponse({ res, data }))
+                    .catch((error) => ApiResponse({ res, error }));
             })
-            .catch(err => res.json({ message: 'No se encontró el usuario' }))
+            .catch((error) => ApiResponse({ res, error }));
     }
 
-    public deleteUsuario(req: Request, res: Response) {
+    public delete(req: Request, res: Response) {
         let id = parseInt(req.params.id);
         Usuarios.findOne({ id } as FindOneOptions<Usuarios>)
-            .then(usuario => {
-                usuario.remove()
-                    .then(u => {
-                        res.json(u)
-                    })
-                    .catch(err => {
-                        res.send(err)
-                    });
+            .then((usuario) => {
+                usuario
+                    .remove()
+                    .then((data) => ApiResponse({ res, data }))
+                    .catch((error) => ApiResponse({ res, error }));
             })
-            .catch(err => { res.json(err.message); });
-    };
-
-
+            .catch((error) => ApiResponse({ res, error }));
+    }
 }

@@ -47,7 +47,7 @@ export class UsuariosAuthController {
             isLogged: true,
             token: token,
             expiresIn: '10h',
-            rol: userSinPass.rol
+            roles: userSinPass.roles
         });
 
     }
