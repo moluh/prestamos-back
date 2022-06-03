@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import * as mw from "../middlewares/auth.middleware";
 import { ClientesController } from "../controllers/clientes.controller";
-import * as mw from './auth_mw';
+import { ADMIN, SUPERADMIN } from "../helpers/roles";
 
 export class ClientesRouter {
 
@@ -8,18 +9,18 @@ export class ClientesRouter {
 
     public routes(app): void {
         app.route('/api/v1/clientes')
-            .get(mw.jwtAdminMidleware, (req: Request, res: Response, next: NextFunction) => {
+            .get(mw.isAllowed([SUPERADMIN]), (req: Request, res: Response, next: NextFunction) => {
                 next();
-            }, mw.jwtAdminMidleware, this.controlador.getClientes)
-            .post(mw.jwtAdminMidleware, this.controlador.createCliente);
+            }, mw.isAllowed([SUPERADMIN]), this.controlador.getClientes)
+            .post(mw.isAllowed([SUPERADMIN]), this.controlador.createCliente);
 
         app.route('/api/v1/cliente/:id')
-            .get(mw.jwtAdminMidleware, this.controlador.getCliente)
-            .put(mw.jwtAdminMidleware, this.controlador.updateCliente)
-            .delete(mw.jwtAdminMidleware, this.controlador.deleteCliente);
+            .get(mw.isAllowed([SUPERADMIN]), this.controlador.getCliente)
+            .put(mw.isAllowed([SUPERADMIN]), this.controlador.updateCliente)
+            .delete(mw.isAllowed([SUPERADMIN]), this.controlador.deleteCliente);
 
         app.route('/api/v1/clientes/paginado')
-            .get(mw.jwtAdminMidleware, this.controlador.findByTxtPaginated);
+            .get(mw.isAllowed([SUPERADMIN]), this.controlador.findByTxtPaginated);
 
     }
 
