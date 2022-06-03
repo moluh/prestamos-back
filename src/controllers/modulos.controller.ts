@@ -1,4 +1,4 @@
-import { Modulos } from '../entities/Modulos';
+import { Modulos } from '../entities/modulos.entity';
 import { Request, Response } from 'express';
 import { ApiResponse } from '../api/response';
 

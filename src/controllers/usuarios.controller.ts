@@ -1,4 +1,4 @@
-import { Usuarios } from '../entities/usuarios';
+import { Usuarios } from '../entities/usuarios.entity';
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';

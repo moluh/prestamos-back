@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { ApiResponse } from '../api/response';
-import { Roles } from '../entities/roles';
-import { Usuarios } from '../entities/Usuarios';
+import { Roles } from '../entities/roles.entity';
+import { Usuarios } from '../entities/usuarios.entity';
 
 const checkRole = (
     decoded: Usuarios,

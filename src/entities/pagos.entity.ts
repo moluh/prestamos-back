@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { Prestamos } from "./prestamos";
+import { Prestamos } from "./prestamos.entity";
 
 
 @Entity('pagos')

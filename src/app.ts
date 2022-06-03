@@ -25,11 +25,11 @@ import { LoginRoutes } from './routes/login.routes';
 import { EstadisticasRouter } from './routes/estadisticas.routes';
 
 // Mock data
-import { MockRouter } from "./routes/mock.routes";
+import { MockRouter } from './routes/mock.routes';
 
 // Crons
-import "./crons/backupDB";
-import { MockController } from "./controllers/mock.controller";
+import './crons/backupDatabase.cron';
+import { MockController } from './controllers/mock.controller';
 class App {
     private logger = require('morgan'); // Registro de cada petición
     public app: express.Application;
@@ -98,9 +98,10 @@ class App {
             next();
         });
 
-        this.app.listen(config.port, () =>
-            console.log(`App escuchando en puerto: ${config.port}`),
-        );
+        this.app.listen(config.port, () => {
+            console.log(`App escuchando en puerto: ${config.port}`);
+            // new MockController().mock(null, null);
+        });
     }
 }
 

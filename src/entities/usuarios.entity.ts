@@ -9,8 +9,8 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { isQueryAllowed } from '../helpers/isQueryAllowed';
-import { Modulos } from './Modulos';
-import { Roles } from './roles';
+import { Modulos } from './modulos.entity';
+import { Roles } from './roles.entity';
 
 @Entity('usuarios')
 export class Usuarios extends BaseEntity {

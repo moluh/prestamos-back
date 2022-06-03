@@ -5,7 +5,7 @@ import {
   BaseEntity,
   ManyToMany,
 } from "typeorm";
-import { Usuarios } from "./Usuarios";
+import { Usuarios } from "./usuarios.entity";
 
 @Entity("modulos")
 export class Modulos extends BaseEntity {

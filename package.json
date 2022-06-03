@@ -33,6 +33,7 @@
     "mongodb": "^4.6.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "node-cron": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.6"
   },

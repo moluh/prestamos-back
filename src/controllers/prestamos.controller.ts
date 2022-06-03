@@ -1,4 +1,4 @@
-import { Prestamos } from '../entities/prestamos';
+import { Prestamos } from '../entities/prestamos.entity';
 import { Request, Response, NextFunction } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 
@@ -39,8 +39,6 @@ export class PrestamosController {
         prestamo.tipo_pago = req.body.tipo_pago;
         prestamo.saldo = req.body.saldo;
         prestamo.estado = req.body.estado;
-
-        prestamo.clienteId = req.body.clienteId;
         prestamo.pagos = req.body.pagos;
 
         prestamo.save()
@@ -66,7 +64,6 @@ export class PrestamosController {
                 prestamo.tipo_pago = req.body.tipo_pago;
                 prestamo.saldo = req.body.saldo;
                 prestamo.estado = req.body.estado;
-                prestamo.clienteId = req.body.clienteId;
                 prestamo.pagos = req.body.pagos;
 
                 prestamo.save()
@@ -110,7 +107,7 @@ export class PrestamosController {
     public async getPrestamoByIdCliente(req: Request, res: Response) {
         let id: any = req.params.id;
         await Prestamos.find({
-            where: { clienteId: id },
+            where: { usuarioId: id },
             order: { fecha_hora: "ASC" },
             relations: ['clienteId', 'pagos']
         })

@@ -3,9 +3,9 @@ import { getConnection } from 'typeorm';
 import { modules } from '../database/mock/constants/modules';
 import { roles } from '../database/mock/constants/roles';
 import { users } from '../database/mock/constants/users';
-import { Modulos } from '../entities/Modulos';
-import { Roles } from '../entities/Roles';
-import { Usuarios } from '../entities/Usuarios';
+import { Modulos } from '../entities/modulos.entity';
+import { Roles } from '../entities/roles.entity';
+import { Usuarios } from '../entities/usuarios.entity';
 
 export class MockController {
     constructor() {}

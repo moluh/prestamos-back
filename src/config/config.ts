@@ -83,10 +83,6 @@ new Config().ensureValues([
     'SQL_USERNAME',
     'SQL_PASSWORD',
     'SQL_DATABASE',
-    'SQL_LOGGING',
-    'SQL_ENTITIES',
-    'SQL_MIGRATIONS',
-    'SQL_MIGRATIONS_CLI',
 
     'MONGO_TYPE',
     'MONGO_HOST',
