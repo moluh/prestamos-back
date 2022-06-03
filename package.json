@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^17.0.25",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",

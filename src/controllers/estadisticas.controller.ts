@@ -1,5 +1,5 @@
-import { Pagos } from '../entities/pagos.entity';
-import { Prestamos } from '../entities/prestamos.entity';
+import { Pagos } from '../entities/pagos.entity.sql';
+import { Prestamos } from '../entities/prestamos.entity.sql';
 import { Request, Response, NextFunction } from 'express';
 
 export class EstadisticasController {

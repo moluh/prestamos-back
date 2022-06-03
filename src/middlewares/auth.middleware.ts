@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { ApiResponse } from '../api/response';
-import { Roles } from '../entities/roles.entity';
-import { Usuarios } from '../entities/usuarios.entity';
+import { Roles } from '../entities/roles.entity.sql';
+import { Usuarios } from '../entities/usuarios.entity.sql';
 
 const checkRole = (
     decoded: Usuarios,
@@ -19,7 +19,7 @@ const checkRole = (
 
 export function isAllowed(requiredRoles: string[]) {
     return function (req: Request, res: Response, next: NextFunction) {
-        return next();
+        // return next();
         const authString = req.headers['authorization'];
 
         if (typeof authString === 'string' && authString.indexOf(' ') > -1) {

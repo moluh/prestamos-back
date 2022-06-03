@@ -8,21 +8,23 @@ if (result.error) {
     throw result.error;
 }
 import mysqlUtil from './database/mysql.util';
+import mongoUtil from './database/mongo.util';
 import compression from 'compression';
 import helmet from 'helmet';
 import express from 'express';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
+// Routes 
+import { ConfigAllRoutes } from './routes';
 
-// Routes
-import { UsuariosRouter } from './routes/usuarios.routes';
-import { ModulosRouter } from './routes/modulos.routes';
-import { RolesRouter } from './routes/roles.routes';
-import { PrestamosRouter } from './routes/prestamos.routes';
-import { PagosRouter } from './routes/pagos.routes';
-import { LoginRoutes } from './routes/login.routes';
-import { EstadisticasRouter } from './routes/estadisticas.routes';
+// import { UsuariosRouter } from './routes/usuarios.routes';
+// import { ModulosRouter } from './routes/modulos.routes';
+// import { RolesRouter } from './routes/roles.routes';
+// import { PrestamosRouter } from './routes/prestamos.routes';
+// import { PagosRouter } from './routes/pagos.routes';
+// import { LoginRoutes } from './routes/login.routes';
+// import { EstadisticasRouter } from './routes/estadisticas.routes';
 
 // Mock data
 import { MockRouter } from './routes/mock.routes';
@@ -34,13 +36,14 @@ class App {
     private logger = require('morgan'); // Registro de cada petición
     public app: express.Application;
     public server: http.Server;
-    public routeUsuarios: UsuariosRouter = new UsuariosRouter();
-    public routeModulos: ModulosRouter = new ModulosRouter();
-    public routeRoles: RolesRouter = new RolesRouter();
-    public routePrestamos: PrestamosRouter = new PrestamosRouter();
-    public routePagos: PagosRouter = new PagosRouter();
-    public routeLogin: LoginRoutes = new LoginRoutes();
-    public routeEst: EstadisticasRouter = new EstadisticasRouter();
+    private allRoutes: ConfigAllRoutes = new ConfigAllRoutes()
+    // public routeUsuarios: UsuariosRouter = new UsuariosRouter();
+    // public routeModulos: ModulosRouter = new ModulosRouter();
+    // public routeRoles: RolesRouter = new RolesRouter();
+    // public routePrestamos: PrestamosRouter = new PrestamosRouter();
+    // public routePagos: PagosRouter = new PagosRouter();
+    // public routeLogin: LoginRoutes = new LoginRoutes();
+    // public routeEst: EstadisticasRouter = new EstadisticasRouter();
 
     constructor() {
         console.log('Iniciando Servidor');
@@ -49,21 +52,30 @@ class App {
     }
 
     private async init() {
-        await this.connectDatabase();
+        await this.connectMySql();
+        if (process.env.CONNECT_MONGO === 'true') {
+            await this.connectMongo();
+        }
 
         this.config();
-        //Definimos todas las rutas
-        this.routePagos.routes(this.app);
-        this.routeModulos.routes(this.app);
-        this.routeRoles.routes(this.app);
-        this.routePrestamos.routes(this.app);
-        this.routeLogin.routes(this.app);
-        this.routeUsuarios.routes(this.app);
-        this.routeEst.routes(this.app);
+        // //Definimos todas las rutas
+        this.allRoutes.routes(this.app)
+        // this.routePagos.routes(this.app);
+        // this.routeModulos.routes(this.app);
+        // this.routeRoles.routes(this.app);
+        // this.routePrestamos.routes(this.app);
+        // this.routeLogin.routes(this.app);
+        // this.routeUsuarios.routes(this.app);
+        // this.routeEst.routes(this.app);
+        
     }
 
-    private async connectDatabase(): Promise<void> {
+    private async connectMySql(): Promise<void> {
         await mysqlUtil.connectDb();
+    }
+
+    private async connectMongo(): Promise<void> {
+        await mongoUtil.connectDb();
     }
 
     private async config(): Promise<void> {

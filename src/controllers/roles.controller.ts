@@ -1,4 +1,4 @@
-import { Roles } from '../entities/roles.entity';
+import { Roles } from '../entities/roles.entity.sql';
 import { Request, Response } from 'express';
 import { ApiResponse } from '../api/response';
 import { FindOneOptions } from 'typeorm';

@@ -77,14 +77,12 @@ new Config().ensureValues([
     'JWT_INNACTIVITY_EXP',
 
     'SQL_NAME_CONNECTION',
-    'SQL_TYPE',
     'SQL_HOST',
     'SQL_PORT',
     'SQL_USERNAME',
     'SQL_PASSWORD',
     'SQL_DATABASE',
 
-    'MONGO_TYPE',
     'MONGO_HOST',
     'MONGO_PORT',
     'MONGO_DATABASE',

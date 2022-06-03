@@ -1,4 +1,4 @@
-import { Prestamos } from '../entities/prestamos.entity';
+import { Prestamos } from '../entities/prestamos.entity.sql';
 import { Request, Response, NextFunction } from 'express';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 

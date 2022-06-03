@@ -1,4 +1,4 @@
-import { Usuarios } from '../entities/usuarios.entity';
+import { Usuarios } from '../entities/usuarios.entity.sql';
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';

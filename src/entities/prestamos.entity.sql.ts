@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { Usuarios } from "./usuarios.entity";
-import { Pagos } from "./pagos.entity";
+import { Usuarios } from "./usuarios.entity.sql";
+import { Pagos } from "./pagos.entity.sql";
 
 
 @Entity('prestamos')

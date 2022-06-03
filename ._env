@@ -3,24 +3,22 @@ PORT=3000
 NODE_ENV="DEV"
 BACKUPS_DIR="/home/lucas/backups"
 FILES_DIR="/home/lucas/Escritorio/prestamos-files"
-CONNECT_MONGO=false
+CONNECT_MONGO=true
 
 JWT_SECRET="secret"
 JWT_EXP=14400 # 3600s = 1h
 JWT_INNACTIVITY_EXP=30
 
-SQL_NAME_CONNECTION="sql_stockfy"
-SQL_TYPE="mysql"
+SQL_NAME_CONNECTION="sql_prestamos"
 SQL_HOST="localhost"
 SQL_PORT=3306
 SQL_USERNAME="root"
-SQL_PASSWORD="root"
+SQL_PASSWORD="testing_dev"
 SQL_DATABASE="prestamos"
 
-MONGO_TYPE="mongodb"
 MONGO_HOST="localhost"
 MONGO_PORT=27017
-MONGO_DATABASE="test"
+MONGO_DATABASE="prestamos"
 MONGO_USERNAME="admin"
 MONGO_PASSWORD="mypass"
 
