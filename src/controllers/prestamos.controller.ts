@@ -10,7 +10,7 @@ export class PrestamosController {
     public async getPrestamos(req: Request, res: Response) {
         await Prestamos.find({
             // order: { fecha_hora: "ASC" },
-            relations: ['clienteId', 'pagos']
+            relations: ['usuarioId', 'pagos']
         })
             .then(prestamo => { res.json(prestamo) })
             .catch(err => { res.json(err.message); })
@@ -20,7 +20,7 @@ export class PrestamosController {
         let id = parseInt(req.params.id);
         await Prestamos.find({
             where: { id },
-            relations: ['clienteId', 'pagos']
+            relations: ['usuarioId', 'pagos']
         })
             .then(prestamo => { res.json(prestamo) })
             .catch(err => { res.json(err.message); })
@@ -104,12 +104,12 @@ export class PrestamosController {
         res.send({ prestamos });
     }
 
-    public async getPrestamoByIdCliente(req: Request, res: Response) {
+    public async getPrestamoByIdUsuario(req: Request, res: Response) {
         let id: any = req.params.id;
         await Prestamos.find({
             where: { usuarioId: id },
             order: { fecha_hora: "ASC" },
-            relations: ['clienteId', 'pagos']
+            relations: ['usuarioId', 'pagos']
         })
             .then(producto => { res.json(producto) })
             .catch(err => { res.send(err); })

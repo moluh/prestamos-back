@@ -14,7 +14,7 @@ export class Roles extends BaseEntity {
   id: number;
 
   //  "SUPERADMIN","ADMIN","USUARIO","EMPLEADO","INVITADO"
-  @Column({ type: "varchar", nullable: false })
+  @Column({ type: "varchar", nullable: false, default: "" })
   role: string;
 
   @Column({ type: "varchar", nullable: false, default: "" })

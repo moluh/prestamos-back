@@ -10,13 +10,7 @@ export class PrestamosRouter {
     public routes(router: express.Router) {
         router
             .route('/prestamos')
-            .get(
-                (req: Request, res: Response, next: NextFunction) => {
-                    next();
-                },
-                mw.isAllowed([SUPERADMIN]),
-                this.controlador.getPrestamos,
-            )
+            .get(mw.isAllowed([SUPERADMIN]), this.controlador.getPrestamos)
             .post(mw.isAllowed([SUPERADMIN]), this.controlador.createPrestamo);
 
         router
@@ -29,10 +23,10 @@ export class PrestamosRouter {
             );
 
         router
-            .route('/prestamos/cliente/:id')
+            .route('/prestamos/usuario/:id')
             .get(
                 mw.isAllowed([SUPERADMIN]),
-                this.controlador.getPrestamoByIdCliente,
+                this.controlador.getPrestamoByIdUsuario,
             );
 
         router

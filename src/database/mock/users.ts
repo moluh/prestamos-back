@@ -15,11 +15,10 @@ export const users = [
     activo: true,
     roles: [{ id: 1, role: "SUPERADMIN" }], // "ADMIN","USUARIO","EMPLEADO","INVITADO"
     modulos: [
-      { id: 1, modulo: "PRODUCTOS_A" },
-      { id: 5, modulo: "ESTADISTICAS_A" },
-      { id: 10, modulo: "MARCAS_A" },
-      { id: 15, modulo: "CATEGORIAS_A" },
-      { id: 20, modulo: "TALLES_A" },
+      { id: 5, modulo: "ESTADISTICAS_A" },  
+      { id: 1, modulo: "USUARIOS_A" },    //  id: 1, 
+      { id: 11, modulo: "PAGOS_A" },       //  id: 11,
+      { id: 16, modulo: "MOVIMIENTOS_A" },   //  id: 16,
     ],
   },
   {
@@ -38,11 +37,10 @@ export const users = [
     activo: true,
     roles: [{ id: 2, role: "ADMIN" }], // "ADMIN","USUARIO","EMPLEADO","INVITADO"
     modulos: [
-      { id: 1, modulo: "PRODUCTOS_A" },
-      { id: 5, modulo: "ESTADISTICAS_A" },
-      { id: 10, modulo: "MARCAS_A" },
-      { id: 15, modulo: "CATEGORIAS_A" },
-      { id: 20, modulo: "TALLES_A" },
+      { id: 5, modulo: "ESTADISTICAS_A" },  
+      { id: 1, modulo: "USUARIOS_A" },    //  id: 1, 
+      { id: 11, modulo: "PAGOS_A" },       //  id: 11,
+      { id: 16, modulo: "MOVIMIENTOS_A" },   //  id: 16,
     ],
   },
   {
@@ -61,9 +59,10 @@ export const users = [
     activo: true,
     roles: [{ id: 8, role: "TESTER" }],
     modulos: [
-      { id: 2, modulo: "PRODUCTOS_R" },
-      { id: 6, modulo: "ESTADISTICAS_R" },
-      { id: 26, modulo: "MOVIMIENTOS_R" },
+      { id: 5, modulo: "ESTADISTICAS_A" },  
+      { id: 1, modulo: "USUARIOS_A" },    //  id: 1, 
+      { id: 11, modulo: "PAGOS_A" },       //  id: 11,
+      { id: 16, modulo: "MOVIMIENTOS_A" },   //  id: 16,
     ],
   },
   {
@@ -82,9 +81,10 @@ export const users = [
     activo: true,
     roles: [{ id: 5, role: "EMPLEADO" }],
     modulos: [
-      { id: 2, modulo: "PRODUCTOS_R" },
-      { id: 6, modulo: "ESTADISTICAS_R" },
-      { id: 26, modulo: "MOVIMIENTOS_R" },
+      { id: 5, modulo: "ESTADISTICAS_A" },  
+      { id: 1, modulo: "USUARIOS_A" },    //  id: 1, 
+      { id: 11, modulo: "PAGOS_A" },       //  id: 11,
+      { id: 16, modulo: "MOVIMIENTOS_A" },   //  id: 16,
     ],
   },
   {
@@ -102,6 +102,11 @@ export const users = [
     recpass: null,
     activo: true,
     roles: [{ id: 6, role: "USUARIO" }],
-    modulos: [],
+    modulos: [
+      { id: 5, modulo: "ESTADISTICAS_A" },  
+      { id: 1, modulo: "USUARIOS_A" },    //  id: 1, 
+      { id: 11, modulo: "PAGOS_A" },       //  id: 11,
+      { id: 16, modulo: "MOVIMIENTOS_A" },   //  id: 16,
+    ],
   },
 ];

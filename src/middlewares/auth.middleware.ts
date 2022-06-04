@@ -19,7 +19,7 @@ const checkRole = (
 
 export function isAllowed(requiredRoles: string[]) {
     return function (req: Request, res: Response, next: NextFunction) {
-        // return next();
+        return next();
         const authString = req.headers['authorization'];
 
         if (typeof authString === 'string' && authString.indexOf(' ') > -1) {
